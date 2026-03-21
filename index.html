@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spy Game</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <h1>Spy</h1>
+
+    <section class="panel" id="setupPanel">
+      <h2>Game Setup</h2>
+      <form id="setupForm" autocomplete="off">
+        <label>
+          Total Players (3–30)
+          <input id="playerCount" type="number" min="3" max="30" value="3" required />
+        </label>
+
+        <label>
+          Number of Spies
+          <input id="spyCount" type="number" min="1" max="2" value="1" required />
+        </label>
+
+        <label>
+          Timer (seconds)
+          <input id="timerSeconds" type="number" min="10" value="60" required />
+        </label>
+
+        <button type="submit">Start Game</button>
+      </form>
+      <p id="setupError" class="error" aria-live="polite"></p>
+    </section>
+
+    <section class="panel hidden" id="gamePanel">
+      <h2 id="turnTitle">Player 1</h2>
+      <p id="instruction">Tap the button to reveal your fortune.</p>
+
+      <div id="fortuneCard" class="fortune hidden" aria-live="polite"></div>
+
+      <button id="revealButton">Reveal</button>
+
+      <div class="timerWrap">
+        <p><strong>Timer:</strong> <span id="timerDisplay">--:--</span></p>
+      </div>
+
+      <p id="gameMessage" class="message" aria-live="polite"></p>
+
+      <button id="newGameButton" class="secondary">New Game</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
