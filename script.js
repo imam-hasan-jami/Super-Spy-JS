@@ -117,23 +117,33 @@ function resetGameUI() {
 }
 
 async function fetchRandomWord() {
-  const response = await fetch("https://random-words-api.vercel.app/word");
-
+  const response = await fetch("https://api.api-ninjas.com/v2/randomword", {
+    method: "GET",
+    headers: {
+      "X-Api-Key": "3RiYiVIMzUJI33uDzPl4l2gLIg66sZVzkTbuGyFy",
+      "Content-Type": "application/json",
+    },
+  });
+  
   if (!response.ok) {
     throw new Error(`Word API failed with status ${response.status}`);
   }
 
   const payload = await response.json();
 
+  if (payload && typeof payload.word === "string" && payload.word.trim()) {
+    return payload.word.trim();
+  }
+
+  if (Array.isArray(payload) && payload.length > 0 && typeof payload[0] === "string" && payload[0].trim()) {
+    return payload[0].trim();
+  }
+
   if (Array.isArray(payload) && payload.length > 0 && typeof payload[0]?.word === "string") {
     const randomWord = payload[0].word.trim();
     if (randomWord) {
       return randomWord;
     }
-  }
-
-  if (payload && typeof payload.word === "string" && payload.word.trim()) {
-    return payload.word.trim();
   }
 
   throw new Error("Word API returned an unexpected response format.");
